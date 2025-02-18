@@ -27,7 +27,7 @@ df_concat = pd.concat([df0, df1], axis=0)
 #print(df_concat)
 
 # Beispiel DataFrames
-df1 = pd.DataFrame({
+df3 = pd.DataFrame({
     'Name': ['Alice', 'Bob', 'Charlie'],
     'Age': [25, 30, 35]
 })
@@ -36,17 +36,15 @@ df2 = pd.DataFrame({
     'Salary': [5000, 6000]
 })
 
-inner = df1.join(df2, how='inner')
-outer = df1.join(df2, how='outer')
-left = df1.join(df2, how='left')
-right = df1.join(df2, how='right')
-#print("--------------------------------------------------------------------")
-#print(inner)
-#print("--------------------------------------------------------------------")
-#print(outer)
-#print("--------------------------------------------------------------------")
-#print(left)
-#print("--------------------------------------------------------------------")
-#print(right)
-
-
+inner = df3.join(df2, how='inner')
+outer = df3.join(df2, how='outer')
+left = df3.join(df2, how='left')
+right = df3.join(df2, how='right')
+print("--------------------------------------------------------------------")
+print(inner)
+print("--------------------------------------------------------------------")
+print(outer)
+print("--------------------------------------------------------------------")
+print(left)
+print("--------------------------------------------------------------------")
+print(right)
