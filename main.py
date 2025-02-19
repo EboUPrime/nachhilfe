@@ -40,11 +40,29 @@ inner = df3.join(df2, how='inner')
 outer = df3.join(df2, how='outer')
 left = df3.join(df2, how='left')
 right = df3.join(df2, how='right')
-print("--------------------------------------------------------------------")
-print(inner)
-print("--------------------------------------------------------------------")
-print(outer)
-print("--------------------------------------------------------------------")
-print(left)
-print("--------------------------------------------------------------------")
-print(right)
+#print("--------------------------------------------------------------------")
+#print(inner)
+#print("--------------------------------------------------------------------")
+#print(outer)
+#print("--------------------------------------------------------------------")
+#print(left)
+#print("--------------------------------------------------------------------")
+#print(right)
+
+
+data = {
+    "Kategorie": ["DE", "DE", "SY", "SY", "TR", "TR"],
+    "Name": ["Berlin", "München","Istanbul", "Izmir", "Aleppo", "Damaskus"],
+    "Umsatz": [100, 200, 150, 300, 250, 400]
+}
+
+df = pd.DataFrame(data)
+
+# Aggregation: Summe, Durchschnitt und Maximum berechnen
+agg_result = df.groupby("Kategorie")["Umsatz"].agg(["sum", "mean", "max"]).round(1)
+agg_result2 = df.groupby("Kategorie")["Name"].agg(lambda x: ", ".join(x.astype(str))).reset_index()
+res = agg_result2.merge(agg_result, on="Kategorie", how="left")
+print(agg_result)
+print(agg_result2)
+print(res)
+

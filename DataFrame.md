@@ -246,3 +246,79 @@ B           60
 - **Verwende `merge()`** und **`concat()`**, wenn du DataFrames auf flexible und effiziente Weise kombinieren möchtest.
 - **Verwende `join()`**, wenn du Daten basierend auf dem Index schnell verbinden musst.
 - **Nutze weitere Operationen** wie `drop()`, `rename()`, `sort_values()` und `groupby()`, um deine DataFrames nach Bedarf zu bearbeiten und zu analysieren.
+
+
+
+# Pandas Aggregationsmethoden
+
+## 🔍 Grundlegende Aggregationsmethoden
+| Methode          | Beschreibung |
+|-----------------|-------------|
+| `.count()`      | Anzahl der Werte |
+| `.sum()`        | Summe der Werte |
+| `.mean()`       | Durchschnitt (arithmetisches Mittel) |
+| `.median()`     | Median (Zentralwert) |
+| `.min()`        | Minimum |
+| `.max()`        | Maximum |
+
+```python
+# Beispiel: Summe aller Werte in der Spalte "Wert"
+df["Wert"].sum()
+```
+
+## 📈 Statistische Aggregationen
+| Methode          | Beschreibung |
+|-----------------|-------------|
+| `.std()`        | Standardabweichung |
+| `.var()`        | Varianz |
+| `.sem()`        | Standardfehler des Mittelwerts |
+| `.mad()`        | Mittlere absolute Abweichung |
+| `.skew()`       | Schiefe (Asymmetrie der Verteilung) |
+| `.kurt()`       | Kurtosis (Wölbung der Verteilung) |
+
+```python
+# Beispiel: Standardabweichung der Spalte "Wert"
+df["Wert"].std()
+```
+
+## 📝 Positionale Aggregationen
+| Methode          | Beschreibung |
+|-----------------|-------------|
+| `.idxmin()`     | Index des kleinsten Werts |
+| `.idxmax()`     | Index des größten Werts |
+| `.quantile(q)`  | Quantil (z. B. 0.25 für das 25%-Perzentil) |
+
+```python
+# Beispiel: 25%-Quantil der Spalte "Wert"
+df["Wert"].quantile(0.25)
+```
+
+## 🌟 Aggregation für kategorische Werte
+| Methode          | Beschreibung |
+|-----------------|-------------|
+| `.nunique()`    | Anzahl einzigartiger Werte |
+| `.mode()`       | Häufigster Wert (Modus) |
+
+```python
+# Beispiel: Anzahl einzigartiger Kategorien
+df["Kategorie"].nunique()
+```
+
+## 📝 String-Operationen (bei `object`-Spalten)
+| Methode          | Beschreibung |
+|-----------------|-------------|
+| `.str.join()`   | Strings zusammenfügen |
+| `.str.cat()`    | Strings verketten |
+
+```python
+# Beispiel: Strings innerhalb einer Gruppe verketten
+df.groupby("Kategorie")["Name"].agg(lambda x: ", ".join(x))
+```
+
+## 🔢 Aggregation mit `groupby()`
+```python
+df.groupby("Kategorie").agg({
+    "Wert": ["sum", "mean", "max"],
+    "Preis": ["min", "median"]
+})
+```
