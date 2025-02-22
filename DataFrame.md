@@ -322,3 +322,137 @@ df.groupby("Kategorie").agg({
     "Preis": ["min", "median"]
 })
 ```
+
+
+
+
+# Lambda-Funktionen in Python – Use Cases
+
+## 1. Einfache Berechnungen direkt in `map()` oder `filter()`
+Lambda-Funktionen eignen sich gut für **kurze Transformationen** oder **Filteroperationen**.
+
+### Quadrat aller Zahlen berechnen
+```python
+numbers = [1, 2, 3, 4, 5]
+squared = list(map(lambda x: x**2, numbers))
+print(squared)  # ➝ [1, 4, 9, 16, 25]
+```
+
+### Nur gerade Zahlen behalten
+```python
+numbers = [1, 2, 3, 4, 5, 6]
+evens = list(filter(lambda x: x % 2 == 0, numbers))
+print(evens)  # ➝ [2, 4, 6]
+```
+
+---
+
+## 2. Sortieren mit `lambda`
+Man kann `lambda` nutzen, um eine **Sortierfunktion** für `sorted()` oder `sort()` zu definieren.
+
+### Sortieren nach der Länge von Strings
+```python
+words = ["Banane", "Apfel", "Kiwi", "Erdbeere"]
+sorted_words = sorted(words, key=lambda x: len(x))
+print(sorted_words)  # ➝ ['Kiwi', 'Apfel', 'Banane', 'Erdbeere']
+```
+
+### Sortieren nach dem 2. Element in einer Liste von Tupeln
+```python
+data = [(1, 3), (4, 1), (2, 5)]
+sorted_data = sorted(data, key=lambda x: x[1])
+print(sorted_data)  # ➝ [(4, 1), (1, 3), (2, 5)]
+```
+
+---
+
+## 3. Verwenden von `lambda` in `pandas`
+Lambda-Funktionen sind sehr nützlich in **pandas**, z. B. für das Bearbeiten von Spalten.
+
+### Eine Spalte transformieren
+```python
+import pandas as pd
+
+df = pd.DataFrame({'Name': ['Max', 'Anna', 'Tom'], 'Alter': [15, 22, 30]})
+df['Alter_plus_5'] = df['Alter'].apply(lambda x: x + 5)
+print(df)
+
+```
+
+```python
+python
+import pandas as pd
+
+# Beispiel-DataFrame
+df = pd.DataFrame({
+    'Name': ['Alice', 'Bob', 'Charlie'],
+    'Alter': [25, 30, 35],
+    'Stadt': ['Berlin', 'Hamburg', 'München']
+})
+
+# Methode zur Bearbeitung einer Zeile mit Lambda
+def transform_row(row):
+    return f"{row['Name']} ist {row['Alter']} Jahre alt und lebt in {row['Stadt']}."
+
+# Neue Spalte mit transformierten Werten
+df['Beschreibung'] = df.apply(lambda row: transform_row(row), axis=1)
+print(df)
+
+```
+
+```python
+python
+import pandas as pd
+
+data = {
+    "Kategorie": ["DE", "DE", "SY", "SY", "TR", "TR"],
+    "Name": ["Berlin", "München","Istanbul", "Izmir", "Aleppo", "Damaskus"],
+    "Umsatz": [100, 200, 150, 300, 250, 400]
+}
+
+df = pd.DataFrame(data)
+
+def process(row):
+    row['Umsatz'] = row['Umsatz'] + 20
+    return row
+
+df = df.apply(lambda row:process(row), axis=1)
+
+print(df)
+
+```
+
+
+
+### Spaltenwerte basierend auf einer Bedingung ersetzen
+```python
+df['Status'] = df['Alter'].apply(lambda x: 'Erwachsen' if x >= 18 else 'Kind')
+print(df)
+```
+
+---
+
+## 4. Mehrere Bedingungen in einer einzigen Zeile
+
+### Notenbewertung
+```python
+note = lambda x: "Bestanden" if x >= 50 else "Nicht bestanden"
+print(note(70))  # ➝ Bestanden
+print(note(40))  # ➝ Nicht bestanden
+```
+
+---
+
+## 5. Kombination mit `reduce()`
+
+### Summe berechnen
+```python
+from functools import reduce
+
+numbers = [1, 2, 3, 4, 5]
+summe = reduce(lambda x, y: x + y, numbers)
+print(summe)  # ➝ 15
+```
+
+**Hinweis:** `reduce()` wendet die `lambda`-Funktion **schrittweise** auf die Werte an.
+

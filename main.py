@@ -62,7 +62,15 @@ df = pd.DataFrame(data)
 agg_result = df.groupby("Kategorie")["Umsatz"].agg(["sum", "mean", "max"]).round(1)
 agg_result2 = df.groupby("Kategorie")["Name"].agg(lambda x: ", ".join(x.astype(str))).reset_index()
 res = agg_result2.merge(agg_result, on="Kategorie", how="left")
-print(agg_result)
-print(agg_result2)
-print(res)
+#print(agg_result)
+#print(agg_result2)
+#print(res)
+
+def process(row):
+    row['Umsatz'] = row['Umsatz'] + 20
+    return row
+
+df = df.apply(lambda row:process(row), axis=1)
+
+print(df)
 
