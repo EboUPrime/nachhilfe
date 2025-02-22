@@ -72,5 +72,24 @@ def process(row):
 
 df = df.apply(lambda row:process(row), axis=1)
 
-print(df)
+import pandas as pd
+
+df = pd.DataFrame({
+    'id': [1, 2, 3, 1, 2],
+    'A': ['a1', 'a2', 'a3', 'a1', 'a2'],
+    'B': ['b1', 'b2', 'b3', 'b1', 'b2']
+})
+
+# Alle einzigartigen Werte aus der ersten Spalte 'id' erhalten
+unique_values = df["id"].unique()
+
+dfs = []
+for value in unique_values:
+    filtered_df = df[df["id"] == value].reset_index(drop=True)
+    filtered_df["Value"] = value
+    dfs.append(filtered_df)
+    print("--------------------------------------------------------------------")
+    print(filtered_df)
+
+
 
