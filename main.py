@@ -1,10 +1,12 @@
 import os
 
 import pandas as pd
+from matplotlib import pyplot as plt
+
 pd.options.display.max_rows = 50  # limit the number of rows to display
 pd.options.display.max_columns = None  # display all columns
 
-from env_vars import images, excels, output
+from env_vars import excels, output
 
 list_of_excel_files =  [os.path.join(excels, x) for x in os.listdir(excels) if x.endswith('.xlsx')]
 
@@ -58,6 +60,22 @@ data = {
 
 df = pd.DataFrame(data)
 
+statistics_df = pd.DataFrame()
+statistics_df['describe'] = df['Kategorie'].describe()
+
+print(statistics_df)
+
+# balkendiagramm erstellen
+# plt.bar(df['Name'], df['Umsatz'], color='skyblue')
+# liniendiagramm erstellen
+#plt.plot(df['Name'], df['Umsatz'], color='skyblue')
+# Pie chart erstellen
+#plt.pie(df['Umsatz'], labels=df['Name'], autopct='%1.1f%%', startangle=140, colors=['red', 'green', 'blue', 'yellow'])
+#plt.title('Balkendiagramm Beispiel')
+#plt.xlabel('Name')
+#plt.ylabel('Umsatz')
+#plt.show()
+
 # Aggregation: Summe, Durchschnitt und Maximum berechnen
 agg_result = df.groupby("Kategorie")["Umsatz"].agg(["sum", "mean", "max"]).round(1)
 agg_result2 = df.groupby("Kategorie")["Name"].agg(lambda x: ", ".join(x.astype(str))).reset_index()
@@ -80,6 +98,13 @@ df = pd.DataFrame({
     'B': ['b1', 'b2', 'b3', 'b1', 'b2']
 })
 
+df2 = df.copy()
+df2['A'] = ['c1', 'c2', 'c3', 'c1', 'c2']
+
+print(
+    df2.compare(df2)
+)
+
 # Alle einzigartigen Werte aus der ersten Spalte 'id' erhalten
 unique_values = df["id"].unique()
 
@@ -90,6 +115,9 @@ for value in unique_values:
     dfs.append(filtered_df)
     print("--------------------------------------------------------------------")
     print(filtered_df)
+
+
+
 
 
 
