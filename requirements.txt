@@ -1,5 +1,10 @@
-pandas
+pandas~=2.2.3
 openpyxl
 IPython
 tabulate
 pandasgui
+matplotlib~=3.10.0
+sns~=0.1
+plotly~=5.24.1
+seaborn~=0.13.2
+scikit-learn~=1.6.1

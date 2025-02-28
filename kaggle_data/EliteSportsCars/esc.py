@@ -1,5 +1,8 @@
 import matplotlib.pyplot as plt
 import pandas as pd
+import seaborn as sns
+
+# https://www.kaggle.com/datasets/wlwwwlw/elite-sports-cars-in-data/data
 
 df = pd.read_csv('Elite Sports Cars in Data.csv')
 
@@ -10,46 +13,17 @@ brands= pd.DataFrame(df['Brand'].value_counts())
 models = df[['Brand','Model']].value_counts()
 years = df[['Brand','Model', 'Year']].value_counts()
 
-# Diagramm von years erstellen
-# plt.bar(brands.index, brands['count'])
-
-# color für balken labels einstellen
-colors = ['blue', 'red', 'green', 'purple', 'yellow', 'orange', 'pink', 'brown', 'black', 'grey']
-# Diagramm erstellen
-plt.figure(figsize=(8, 5))
-
-# Horizontal Diagramm erstellen
-plt.barh(brands.index, brands['count'], color=colors)
-
-# Titel und Achsenbeschriftungen hinzufügen
-plt.title('Balkendiagramm Beispiel')
-plt.xlabel('Brand')
-
-
-# x takt einstellen
-plt.xticks(range(0, max(brands['count'])+200, 50))
-#plt.xticks(rotation=90)
-
-
-
-plt.ylabel('count')
-# y takt einstellen
-#plt.yticks(range(0, len(brands)+1, 1))
 
 
 
 
-
-# margin einstellen
-plt.margins(0.1)
-
-# äußere Rahmen margin einstellen
-plt.subplots_adjust(left=0.2, right=0.9, top=0.9, bottom=0.3)
-
-
-# Diagramm anzeigen
-plt.show()
-
+# Balkendiagramm für Marken
+#plt.figure(figsize=(10, 5))
+#plt.subplots_adjust(left=0.1, right=0.9, top=0.9, bottom=0.2)
+#sns.countplot(x="Model", data=df, order=df['Model'].value_counts().index, palette="coolwarm")
+#plt.title("Anzahl der Autos pro Model")
+#plt.xticks(rotation=45)  # Dreht die Labels für bessere Lesbarkeit
+#plt.show()
 
 
 
